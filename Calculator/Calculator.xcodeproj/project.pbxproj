@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		962FD6C11CF0C24700BCCC01 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962FD6C01CF0C24700BCCC01 /* CalculatorBrain.swift */; };
 		96B300011CEF287400DDCEFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B3FFFF1CEF287400DDCEFA /* Main.storyboard */; };
 		96B300031CEF287400DDCEFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B300021CEF287400DDCEFA /* Assets.xcassets */; };
 		96B300061CEF287400DDCEFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B300041CEF287400DDCEFA /* LaunchScreen.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		962FD6C01CF0C24700BCCC01 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		96B300001CEF287400DDCEFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		96B300021CEF287400DDCEFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96B300051CEF287400DDCEFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				96B3000D1CEF29C700DDCEFA /* Supporting Files */,
 				96B3FFFD1CEF287400DDCEFA /* ViewController.swift */,
 				96B3FFFF1CEF287400DDCEFA /* Main.storyboard */,
+				962FD6C01CF0C24700BCCC01 /* CalculatorBrain.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				962FD6C11CF0C24700BCCC01 /* CalculatorBrain.swift in Sources */,
 				96B3FFFE1CEF287400DDCEFA /* ViewController.swift in Sources */,
 				96B3FFFC1CEF287400DDCEFA /* AppDelegate.swift in Sources */,
 			);
@@ -290,6 +294,7 @@
 				96B3000C1CEF287400DDCEFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		96B3FFF31CEF287400DDCEFA /* Build configuration list for PBXProject "Calculator" */ = {
 			isa = XCConfigurationList;
