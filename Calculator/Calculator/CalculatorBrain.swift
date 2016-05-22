@@ -15,6 +15,29 @@ class CalculatorBrain {
     accumulator = operand
   }
 
+  func performOperation(symbol: String) {
+    if let operation = operations[symbol] {
+      switch operation {
+      case .Constant(let value):
+        accumulator = value
+      case .UnaryOperation(let function):
+        accumulator = function(accumulator)
+      case .BinaryOperation(let function):
+        executePendingBinaryOperation()
+        pending = PendingBinaryOperationInformation(binaryFunction: function, firstOperand: accumulator)
+      case .Equals:
+        executePendingBinaryOperation()
+      }
+    }
+  }
+
+  func clearAll() {
+    pending = nil
+    accumulator = 0.0
+  }
+
+  private var pending: PendingBinaryOperationInformation?
+
   private var operations: Dictionary<String,Operation> = [
     "π": Operation.Constant(M_PI),
     "e": Operation.Constant(M_E),
@@ -34,20 +57,9 @@ class CalculatorBrain {
     case Equals
   }
 
-  func performOperation(symbol: String) {
-    if let operation = operations[symbol] {
-      switch operation {
-      case .Constant(let value):
-        accumulator = value
-      case .UnaryOperation(let function):
-        accumulator = function(accumulator)
-      case .BinaryOperation(let function):
-        executePendingBinaryOperation()
-        pending = PendingBinaryOperationInformation(binaryFunction: function, firstOperand: accumulator)
-      case .Equals:
-        executePendingBinaryOperation()
-      }
-    }
+  private struct PendingBinaryOperationInformation {
+    var binaryFunction: (Double, Double) -> Double
+    var firstOperand: Double
   }
 
   private func executePendingBinaryOperation(){
@@ -57,12 +69,6 @@ class CalculatorBrain {
     }
   }
 
-  private var pending: PendingBinaryOperationInformation?
-
-  private struct PendingBinaryOperationInformation {
-    var binaryFunction: (Double, Double) -> Double
-    var firstOperand: Double
-  }
 
   var result: Double {
     get {
