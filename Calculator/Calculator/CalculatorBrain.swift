@@ -9,10 +9,25 @@
 import Foundation
 
 class CalculatorBrain {
+  var isPartialResult = false
+  var result: Double {
+    get {
+      return accumulator
+    }
+  }
+  var description: String {
+    get {
+      return descriptionString
+    }
+  }
+
   private var accumulator = 0.0
+  private var descriptionString = ""
+  private var pending: PendingBinaryOperationInformation?
 
   func setOperand(operand: Double) {
     accumulator = operand
+    descriptionString += "\(String(operand)) "
   }
 
   func performOperation(symbol: String) {
@@ -20,13 +35,18 @@ class CalculatorBrain {
       switch operation {
       case .Constant(let value):
         accumulator = value
+        descriptionString += "\(symbol) "
       case .UnaryOperation(let function):
         accumulator = function(accumulator)
+        descriptionString = ""
       case .BinaryOperation(let function):
         executePendingBinaryOperation()
         pending = PendingBinaryOperationInformation(binaryFunction: function, firstOperand: accumulator)
+        descriptionString += "\(symbol) "
       case .Equals:
         executePendingBinaryOperation()
+      case .RandomNumber(let function):
+        accumulator = function()
       }
     }
   }
@@ -34,15 +54,17 @@ class CalculatorBrain {
   func clearAll() {
     pending = nil
     accumulator = 0.0
+    descriptionString = " "
   }
-
-  private var pending: PendingBinaryOperationInformation?
 
   private var operations: Dictionary<String,Operation> = [
     "π": Operation.Constant(M_PI),
     "e": Operation.Constant(M_E),
+    "Rand": Operation.RandomNumber(CalculatorBrain.randomNumberGenerator),
     "√": Operation.UnaryOperation(sqrt),
     "cos": Operation.UnaryOperation(cos),
+    "%": Operation.UnaryOperation({ $0 / 100 }),
+    "±": Operation.UnaryOperation({ -$0 }),
     "×": Operation.BinaryOperation({ $0 * $1 }),
     "÷": Operation.BinaryOperation({ $0 / $1 }),
     "+": Operation.BinaryOperation({ $0 + $1 }),
@@ -54,6 +76,7 @@ class CalculatorBrain {
     case Constant(Double)
     case UnaryOperation((Double) -> Double)
     case BinaryOperation((Double, Double) -> Double)
+    case RandomNumber(() -> Double)
     case Equals
   }
 
@@ -62,17 +85,16 @@ class CalculatorBrain {
     var firstOperand: Double
   }
 
+  private static func randomNumberGenerator() -> Double {
+    return drand48()
+  }
+
   private func executePendingBinaryOperation(){
+    isPartialResult = true
     if pending != nil {
       accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
       pending = nil
-    }
-  }
-
-
-  var result: Double {
-    get {
-      return accumulator
+      isPartialResult = false
     }
   }
 }
