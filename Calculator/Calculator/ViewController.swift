@@ -12,7 +12,6 @@ class ViewController: UIViewController {
 
   @IBOutlet private weak var display: UILabel!
   @IBOutlet weak var operationDescription: UILabel!
-  @IBOutlet weak var piButton: UIButton!
 
   private var userIsInTheMiddleOfTyping = false
   private var brain = CalculatorBrain()
@@ -61,7 +60,6 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    piButton.layer.borderColor = UIColor.blackColor().CGColor
   }
 
   override func didReceiveMemoryWarning() {
